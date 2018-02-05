@@ -29,7 +29,7 @@ package image {
 		private function onClick(e:MouseEvent):void {
 			if (ImportImage.imageData == null) ImageError.noDrawnImage.displayError();
 			else {
-				var bitmapData:BitmapData = new BitmapData(Main.drawSprite.width / Main.scale, Main.drawSprite.height / Main.scale);
+				var bitmapData:BitmapData = new BitmapData(Main.drawSprite.width / Main.scale, Main.drawSprite.height / Main.scale, true, 0);
 				bitmapData.draw(Main.drawSprite);
 				var byteArray:ByteArray = PNGEncoder.encode(bitmapData);
 				saveReference.save(byteArray, "image.png");

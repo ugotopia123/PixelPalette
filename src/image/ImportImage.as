@@ -7,6 +7,8 @@ package image {
 	import flash.events.Event;
 	import flash.events.MouseEvent;
 	import flash.filesystem.File;
+	import flash.geom.Point;
+	import flash.geom.Rectangle;
 	import flash.net.FileFilter;
 	import flash.net.URLRequest;
 	import palette.Palette;
@@ -68,13 +70,16 @@ package image {
 			
 			for (var i:uint = 0; i < data.height; i++) {
 				for (var j:uint = 0; j < data.width; j++) {
-					newSprite.graphics.beginFill(Palette.currentPalette.getLeastDifference(data.getPixel(j, i)));
+					var pixel:uint = data.getPixel(j, i);
+					var alpha:Number = (data.getPixel32(j, i) >> 24 & 0xFF) / 256;
+					
+					newSprite.graphics.beginFill(Palette.currentPalette.getLeastDifference(pixel), alpha);
 					newSprite.graphics.drawRect(j, i, 1, 1);
-					newSprite.graphics.endFill();
 				}
 			}
 			
-			var newData:BitmapData = new BitmapData(data.width, data.height);
+			newSprite.graphics.endFill();
+			var newData:BitmapData = new BitmapData(data.width, data.height, true, 0);
 			Main.drawSprite.addChild(new Bitmap(newData));
 			newData.draw(newSprite, newSprite.transform.matrix);
 			
