@@ -99,6 +99,8 @@ package{
 			if (ImportImage.imageData == null) return;
 			
 			var scroll:Number = e.delta;
+			var xProprtion:Number = (stageInstance.mouseX - _drawSprite.x) / _drawSprite.width;
+			var yPropotion:Number = (stageInstance.mouseY - _drawSprite.y) / _drawSprite.height;
 			
 			if (scroll > 0) scroll = 1;
 			else scroll = -1;
@@ -110,6 +112,8 @@ package{
 			else if (_scale < 1) _scale = 1;
 			
 			_drawSprite.scaleX = _drawSprite.scaleY = _scale;
+			_drawSprite.x = stageInstance.mouseX - _drawSprite.width * xProprtion;
+			_drawSprite.y = stageInstance.mouseY - _drawSprite.height * yPropotion;
 		}
 		
 		private static function updateTimer(e:TimerEvent):void {
